@@ -65,14 +65,39 @@ public class app implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       String ogolGodzin = txt1.getText();
-        String Przedmiot = txt2.getText();
-       String Temat = txt4.getText();
-        String LiczbaGodzin = txt3.getText();
 
-        lbl4.setText(Integer.toString(pozostalo(Integer.parseInt(ogolGodzin), Integer.parseInt(LiczbaGodzin))) );
-        txt1.setText(Integer.toString(pozostalo(Integer.parseInt(ogolGodzin), Integer.parseInt(LiczbaGodzin))));
-        List.data.addElement(Temat+" | "+LiczbaGodzin);
+        try{
+            txt1.setEnabled(false);
+            txt2.setEnabled(false);
+            int ogolGodzin = Integer.parseInt(txt1.getText());
+            String Przedmiot = "";
+                   Przedmiot = txt2.getText();
+            String Temat ="";
+                    Temat = txt4.getText();
+            int LiczbaGodzin = Integer.parseInt(txt3.getText());
+            if (Przedmiot.isEmpty() || Temat.isEmpty()){
+                System.out.println("temat lub przedmiot nie może być pusty");
+                txt1.setEnabled(true);
+                txt2.setEnabled(true);
+            }else{
+
+                if(ogolGodzin>=LiczbaGodzin && LiczbaGodzin!=0 ){
+                    lbl4.setText(Integer.toString(pozostalo(ogolGodzin, LiczbaGodzin)) );
+                    txt1.setText(Integer.toString(pozostalo(ogolGodzin, LiczbaGodzin)));
+                    List.data.addElement(Temat+" | "+LiczbaGodzin);
+                }else{
+                    System.out.println("liczba nie może byc ujemna");
+                }
+            }
+
+        }catch (NumberFormatException nfe){
+            System.out.println("To pole przyjmuje tylko liczby");
+            txt1.setEnabled(true);
+            txt2.setEnabled(true);
+        }
+
+
+
 
     }
     public int pozostalo(int ogol, int licztem){
